@@ -1,4 +1,5 @@
 
-public class Iinstructions {
-
+public class Iinstructions implements instruction {
+	//OP rt, rs, imm
+	
 }
