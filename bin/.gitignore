@@ -1,8 +1,3 @@
-/Iinstructions.class
-/Jinstruction.class
-/MainPipe.class
-/Rinstructions.class
-/register.class
-/instruction.class
-/Register.class
-/Exceptions/
+/TestMain.class
+/registerFunctions.class
+/registerFunctions$RegisterNames.class

@@ -1,53 +1,32 @@
-
+//TODO only using integers right now, code to be generic later
 public class Register {
-	
-	//0 = empty register, 1 = int, 2 = string
-	int controllerValue;
-	int intValue;
-	String strValue;
+
 	private String registerName;
+	private int storedValue;
 	
 	public Register (String registerName) {
 		this.registerName = registerName;
+		this.storedValue = 0;
 	}
 	
-	String GetName() {
+	public String GetName() {
 		return this.registerName;
 	}
 	
-	String ToString() {
-		return (String)getValue();
+	public String ToString() {
+		return Integer.toString(this.GetValue());
 	}
 	
-	boolean addValue(String value) {
-		controllerValue = 2;
-		strValue = value;
-		if (strValue != value) {
-			return false;
-		} else {
-			return true;
-		}
+	public int GetValue() {
+		return this.storedValue;
 	}
 	
-	boolean addValue(int value) {
-		controllerValue = 1;
-		intValue = value;
-		if (intValue != value) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-	
-	Object getValue() {
-		if (controllerValue == 2) {
-			return strValue;
-		} else if (controllerValue == 1) {
-			return intValue;
-		}
+	//TODO add in limits
+	public boolean SetValue(int value) {
+		this.storedValue = value;
 		
-		return null;
+		return true;
 	}
- 
+	
 	
 }
