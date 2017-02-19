@@ -4,11 +4,17 @@ import Exceptions.RegisterNotFoundException;
 public class MainPipe {
 	
 	private int programCounter; //
-	private ArrayList instructionMemory = new ArrayList();
+	private ArrayList<instruction> instructionMemory = new ArrayList<instruction>();
 	private Register[] registers = new Register[32];
 	
 	public MainPipe() {
+		this.programCounter = 0;
 		this.PopulateRegisterArray();
+		this.SetRegister("a1", 5);
+		this.SetRegister("a2", 6);
+		instructionMemory.add(new Rinstruction("add", this.GetRegister("a0"), this.GetRegister("a1"), this.GetRegister("a2")));
+		instructionMemory.add(new Iinstruction("addi", this.GetRegister("a0"), this.GetRegister("a0"), 20));
+		this.process();
 	}
 	
 	/* gets operation, 
@@ -17,10 +23,10 @@ public class MainPipe {
 	 * 
 	 * returns true/false based on return.
 	 */
-	boolean UpdatePC (String op) {
+	private boolean UpdatePC (String op) {
 		
 		if (op.equals("next")) {
-			programCounter++;
+			programCounter+=4;
 			return true;
 		} else if (op.equals("jump")) {
 			//implement jump code
@@ -28,6 +34,16 @@ public class MainPipe {
 		} else {
 			//implement an exception to throw
 			return false;
+		}
+	}
+	
+	private void process() {
+		for (instruction i : instructionMemory) {
+			i.Process();
+			String instructionType = i.getClass().getName();
+			if (instructionType == "Rinstruction" || instructionType == "Iinstruction") {
+				this.UpdatePC("next");
+			}
 		}
 	}
 	
@@ -73,11 +89,12 @@ public class MainPipe {
 		return true;
 	}
 
-	public void SetRegister(String name, int value) {
+	//for testing purposes.
+	private void SetRegister(String name, int value) {
 		this.GetRegister(name).SetValue(value);
 	}
 	
-	public void ClearRegister (String name) {
+	private void ClearRegister (String name) {
 		this.GetRegister(name).SetValue(0);
 	}
 	
